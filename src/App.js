@@ -4,14 +4,21 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
 } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
+import Home, { animeLoader } from "./pages/Home";
+import Detail from "./pages/Detail";
+import Verfikasi from "./pages/Verifikasi";
+import AnimeSetting from "./pages/Animesetting";
+import Admin from "./pages/Admin";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Dashboard />}>
-      <Route index element={<Home />} />
-    </Route>
+    <>
+      <Route path='/' element={<Home />} loader={animeLoader}>
+        <Route path='detail' element={<Detail />} />
+      </Route>
+      <Route path='/verify' element={<Verfikasi />} />
+      <Route path='/admin' element={<Admin />} />
+    </>
   )
 );
 
