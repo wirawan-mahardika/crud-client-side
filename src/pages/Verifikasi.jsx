@@ -1,7 +1,11 @@
-import { Form } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 import verifyBg from "../image/loginbg.jpg";
+import axios from "axios";
 
 export default function Verfikasi() {
+  const data = useActionData();
+  console.log(data);
+
   return (
     <>
       <div
@@ -18,6 +22,7 @@ export default function Verfikasi() {
                 type='text'
                 className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300'
                 placeholder='Only admin know'
+                name='name'
               />
             </div>
             <div className='w-full flex flex-col gap-y-2 text-gray-300 items-center'>
@@ -26,6 +31,7 @@ export default function Verfikasi() {
                 type='text'
                 className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300'
                 placeholder="Admin's email"
+                name='email'
               />
             </div>
             <div className='w-full flex flex-col gap-y-2 text-gray-300 items-center'>
@@ -34,6 +40,7 @@ export default function Verfikasi() {
                 type='text'
                 className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300'
                 placeholder="Admin's goal"
+                name='goal'
               />
             </div>
             <div className='w-full flex text-center gap-y-2 flex-col text-gray-300 items-center'>
@@ -42,6 +49,7 @@ export default function Verfikasi() {
                 type='text'
                 className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300'
                 placeholder='favorite language'
+                name='language'
               />
             </div>
             <button
@@ -55,3 +63,17 @@ export default function Verfikasi() {
     </>
   );
 }
+
+export const adminVerify = async ({ request }) => {
+  const data = Object.fromEntries(await request.formData());
+
+  try {
+    const response = await axios.post("http://localhost:1000/api/admin", {
+      data,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return "false";
+  }
+};
