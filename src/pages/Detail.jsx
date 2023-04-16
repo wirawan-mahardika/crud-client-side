@@ -21,10 +21,12 @@ export default function Detail() {
               <img
                 src={state.poster}
                 alt={state.image}
-                className='w-4/5 mx-auto'
+                className='w-4/5 mx-auto sm:w-2/3'
               />
-              <p className='font-semibold text-xl text-center'>{state.title}</p>
-              <ul className='mx-auto'>
+              <p className='font-semibold text-xl text-center sm:text-3xl sm:font-quicksand'>
+                {state.title}
+              </p>
+              <ul className='mx-auto sm:text-3xl sm:font-quicksand'>
                 <li>Rating : {state.rating}</li>
                 <li>Season : {state.season} </li>
                 <li>Date Release : {state.tanggalRilis}</li>

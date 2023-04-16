@@ -14,21 +14,21 @@ export default function Home() {
         style={{ backgroundImage: `url(${backgroundImage})` }}
         className='w-screen min-h-max bg-cover text-zinc-300 bg-fixed bg-center font-quicksand'>
         <Navbar />
-        <div className='container flex flex-col'>
+        <div className='flex flex-col'>
           <Form className='flex p-3 flex-col gap-y-2 w-full pl-6'>
-            <h3 className='font-bold text-xl font-josefin-sans'>
+            <h3 className='font-bold text-xl font-josefin-sans sm:text-red-900 sm:text-3xl'>
               Search Anime Here
             </h3>
             <input
               type='text'
               placeholder='Type the title . . .'
-              className='rounded px-3 py-1 bg-gray-800 w-3/5 outline-none focus:ring focus:ring-indigo-950'
+              className='rounded px-3 py-1 bg-gray-800 w-3/5 outline-none focus:ring focus:ring-indigo-950 sm:text-lg sm:px-4'
             />
-            <button className='px-4 py-0.5 rounded bg-red-900 text-black font-semibold w-fit '>
+            <button className='px-4 py-0.5 rounded bg-red-900 text-black font-semibold w-fit sm:px-6 sm:py-2'>
               Search
             </button>
           </Form>
-          <div className='flex flex-col gap-y-5 mt-4 pb-10'>
+          <div className='flex flex-col gap-y-5 mt-4 pb-10 sm:grid sm:grid-cols-2'>
             {data &&
               data.map((anime) => {
                 return (

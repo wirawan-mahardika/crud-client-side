@@ -7,7 +7,7 @@ export default function Admin() {
       <div
         style={{ backgroundImage: `url(${setting})` }}
         className='w-full h-screen bg-cover flex justify-center items-center bg-right-bottom'>
-        <div className='flex flex-col gap-y-10 justify-center h-full text-center'>
+        <div className='flex flex-col gap-y-10 justify-center h-full text-center sm:flex-row sm:text-2xl sm:items-center sm:justify-evenly sm:w-full'>
           <NavLink
             to='/add-anime'
             className={
