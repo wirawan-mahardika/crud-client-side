@@ -8,11 +8,11 @@ export default function AddAnime() {
         style={{ backgroundImage: `url(${setting})` }}
         className='w-full min-h-full bg-cover bg-fixed flex justify-center overflow-y-scroll items-center bg-right-bottom'>
         <Form className='w-full h-full p-5 text-white flex font-quicksand flex-col items-center sm:grid sm:grid-cols-2 sm:h-screen'>
-          <h2 className='font-bold text-xl font-josefin-sans sm:text-3xl sm:col-span-2 sm:text-center'>
+          <h2 className='font-bold text-xl font-josefin-sans sm:text-3xl sm:col-span-2 sm:text-center md:text-4xl'>
             Form Add Anime
           </h2>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Title
             </label>
             <input
@@ -23,7 +23,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Genre
             </label>
             <input
@@ -34,7 +34,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Total Episode
             </label>
             <input
@@ -45,7 +45,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Studio
             </label>
             <input
@@ -56,7 +56,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Rating
             </label>
             <input
@@ -67,7 +67,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Season
             </label>
             <input
@@ -78,7 +78,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Status
             </label>
             <input
@@ -89,7 +89,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Durasi
             </label>
             <input
@@ -100,7 +100,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Tanggal Rilis
             </label>
             <input
@@ -111,7 +111,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Poster URL
             </label>
             <input
@@ -122,7 +122,7 @@ export default function AddAnime() {
             />
           </div>
           <div className='flex flex-col w-full p-3 items-center col-span-2'>
-            <label htmlFor='title' className='text-lg sm:text-xl'>
+            <label htmlFor='title' className='text-lg sm:text-xl md:text-2xl'>
               Sinopsis
             </label>
             <textarea
@@ -132,9 +132,11 @@ export default function AddAnime() {
               placeholder='sinopsis . . .'
               className='bg-gray-800 px-3 py-1 rounded w-4/5 sm:text-lg sm:py-2'></textarea>
           </div>
-          <button className='px-3 py-1 bg-red-600 rounded w-fit mb-10 sm:mx-auto sm:col-span-2'>
-            Simpan
-          </button>
+          <div className='lg:pb-6 sm:mx-auto sm:col-span-2'>
+            <button className='px-3 py-1 bg-red-600 rounded w-fit mb-10 lg:mx-auto'>
+              Simpan
+            </button>
+          </div>
         </Form>
       </div>
     </>

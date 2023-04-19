@@ -11,7 +11,7 @@ export default function Verfikasi() {
         style={{ backgroundImage: `url(${verifyBg})` }}
         className='w-full h-screen bg-cover flex justify-center items-center'>
         <div className='w-full h-fit p-5 flex flex-col gap-y-2 capitalize'>
-          <h3 className='text-3xl font-bold text-gray-200 font-josefin-sans text-center sm:text-5xl'>
+          <h3 className='text-3xl font-bold text-gray-200 font-josefin-sans text-center sm:text-5xl lg:text-3xl'>
             Admin Status verify
           </h3>
           <Form
@@ -21,7 +21,7 @@ export default function Verfikasi() {
               <p>Who Are You</p>
               <input
                 type='text'
-                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2'
+                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2 lg:py-1 lg:px-3 lg:text-base lg:w-2/5'
                 placeholder='Only admin know'
                 name='name'
               />
@@ -30,7 +30,7 @@ export default function Verfikasi() {
               <p>Email</p>
               <input
                 type='text'
-                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2'
+                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2 lg:py-1 lg:px-3 lg:text-base lg:w-2/5'
                 placeholder="Admin's email"
                 name='email'
               />
@@ -39,7 +39,7 @@ export default function Verfikasi() {
               <p>What's your goal</p>
               <input
                 type='text'
-                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2'
+                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2 lg:py-1 lg:px-3 lg:text-base lg:w-2/5'
                 placeholder="Admin's goal"
                 name='goal'
               />
@@ -48,14 +48,14 @@ export default function Verfikasi() {
               <p>Favorite programing language</p>
               <input
                 type='text'
-                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2'
+                className='px-3 py-1 outline-none rounded text-gray-950 focus:ring-2 focus:ring-red-700 bg-gray-300 sm:px-5 sm:w-3/5 sm:py-2 lg:py-1 lg:px-3 lg:text-base lg:w-2/5'
                 placeholder='favorite language'
                 name='language'
               />
             </div>
             <button
               type='submit'
-              className='bg-blue-700 px-3 py-1 rounded font-medium w-fit mx-auto sm:px-8 sm:py-2'>
+              className='bg-blue-700 px-3 py-1 rounded font-medium w-fit mx-auto sm:px-8 sm:py-2 lg:px-3 lg:py-1 lg:text-lg'>
               Verify
             </button>
           </Form>

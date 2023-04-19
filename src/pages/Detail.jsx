@@ -45,7 +45,7 @@ export default function Detail() {
         </div>
         <NavLink
           to='/'
-          className='px-4 py-1 w-fit mx-auto bg-red-600 mt-5 rounded font-medium'>
+          className='px-4 py-1 w-fit mx-auto bg-red-600 mt-5 rounded font-medium sm:px-7 sm:py-2 sm:text-xl'>
           Close
         </NavLink>
       </div>
