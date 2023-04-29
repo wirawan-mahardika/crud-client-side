@@ -1,10 +1,13 @@
-import { Form, Link, Outlet, useLoaderData } from "react-router-dom";
+import { Form, Link, Outlet, useActionData, useLoaderData } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import backgroundImage from "../image/dashboard.jpg";
 import axios from "axios";
 
 export default function Home() {
-  const data = useLoaderData();
+  const loaderData = useLoaderData();
+  const actionData = useActionData()
+  const data =  actionData|| loaderData
+  // console.log(actionData)
 
   return (
     <>
@@ -13,7 +16,7 @@ export default function Home() {
         className='w-full min-h-max bg-cover text-zinc-300 bg-fixed bg-center font-quicksand'>
         <Navbar />
         <div className='flex flex-col'>
-          <Form className='flex p-3 flex-col gap-y-2 w-full pl-6'>
+          <Form method="post" className='flex p-3 flex-col gap-y-2 w-full pl-6'>
             <h3 className='font-bold text-xl font-josefin-sans sm:text-red-900 sm:text-3xl md:text-blue-700 lg:text-amber-700 lg:text-xl'>
               Search Anime Here
             </h3>
@@ -21,6 +24,7 @@ export default function Home() {
               type='text'
               placeholder='Type the title . . .'
               className='rounded px-3 py-1 bg-gray-800 w-3/5 outline-none focus:ring focus:ring-indigo-950 sm:text-lg sm:px-4 md:px-5 md:py-2 md:text-xl lg:px-4 lg:py-1 lg:text-base lg:w-1/3'
+              name="title"
             />
             <button className='px-4 py-0.5 rounded bg-red-900 text-black font-semibold w-fit sm:px-6 sm:py-2 lg:py-1 lg:px-4'>
               Search
@@ -31,7 +35,7 @@ export default function Home() {
               data.map((anime) => {
                 return (
                   <>
-                    <div className='w-5/6 mx-auto text-center'>
+                    <div key={anime.id} className='w-5/6 mx-auto text-center'>
                       <img
                         src={anime.poster}
                         alt={anime.title}
@@ -61,8 +65,19 @@ export default function Home() {
 export const animeLoader = async () => {
   try {
     const response = await axios.get("http://localhost:1000/api/animes");
-    return response.data;
+    return response.data.data;
   } catch (error) {
     return error.response;
   }
 };
+
+export const animeSearch = async({request}) => {
+  const data = Object.fromEntries(await request.formData());
+  try {
+    const response = await axios.get('http://localhost:1000/api/animes/search/'+data.title, {withCredentials: true})
+    return response.data.animes
+  } catch (error) {
+    console.log(error)
+    return 'failed'
+  }
+}

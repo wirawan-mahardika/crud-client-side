@@ -1,7 +1,23 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import setting from "../image/setting.webp";
+import { useEffect } from "react";
+import axios from 'axios'
 
 export default function Admin() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
+      .then(result => {
+        localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
+        if(result.data.code === 401) return navigate('/')
+      }).catch(err => {
+        if (err) {
+          return navigate('/')
+        }
+      })
+  }, [navigate])
+
   return (
     <>
       <div
