@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import setting from "../image/setting.webp";
 import { useEffect } from "react";
-import axios from 'axios'
+import axios from "axios";
 
 export default function Admin() {
   const navigate = useNavigate()

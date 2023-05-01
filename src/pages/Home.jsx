@@ -6,8 +6,7 @@ import axios from "axios";
 export default function Home() {
   const loaderData = useLoaderData();
   const actionData = useActionData()
-  const data =  actionData|| loaderData
-  // console.log(actionData)
+  const data =  actionData || loaderData
 
   return (
     <>
@@ -64,10 +63,10 @@ export default function Home() {
 
 export const animeLoader = async () => {
   try {
-    const response = await axios.get("http://localhost:1000/api/animes");
+    const response = await axios.get("http://localhost:1000/api/animes", {withCredentials: true});
     return response.data.data;
   } catch (error) {
-    return error.response;
+    return null;
   }
 };
 

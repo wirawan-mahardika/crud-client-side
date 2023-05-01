@@ -1,7 +1,7 @@
-import { Form, NavLink, useNavigate } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import setting from "../image/setting.webp";
-import axios from "axios";
 import { useEffect } from "react";
+import axios from "axios";
 
 export default function AddAnime() {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ export default function AddAnime() {
           return navigate('/')
         }
       })
-  }, [])
+  }, [navigate])
   return (
     <>
       <div

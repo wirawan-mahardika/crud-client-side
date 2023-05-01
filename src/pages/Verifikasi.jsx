@@ -1,19 +1,20 @@
 import { Form, NavLink, useActionData } from "react-router-dom";
 import verifyBg from "../image/loginbg.jpg";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Verfikasi() {
-  const [authCode, setAuthCode] = useState(null)
+  const [authCode, setAuthCode] = useState()
+  const data = useActionData()
   useEffect(() => {
-    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
+    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true })
       .then(result => {
         localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
         setAuthCode(result.data.code)
       })
       .catch(err => console.log(err))
   }, [])
-  const data = useActionData()
+
 
   return (
     <>
