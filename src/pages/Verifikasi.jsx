@@ -4,15 +4,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function Verfikasi() {
-  const [authCode, setAuthCode] = useState()
+  const [auth, setAuth] = useState(null)
   const data = useActionData()
+  console.log(localStorage.getItem('tokenExp'))
+  console.log(Date.now())
+
   useEffect(() => {
-    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true })
+    if(localStorage.getItem('tokenExp') <= Date.now()) {
+      axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
       .then(result => {
-        localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
-        setAuthCode(result.data.code)
+        localStorage.setItem('tokenExp', result.data.dataToken.exp)
+        localStorage.setItem('token', result.data.dataToken.token)
+        setAuth(result.data.code)
       })
       .catch(err => console.log(err))
+    } else if(!localStorage.getItem('token')) {
+      setAuth(null)
+    } else {
+      setAuth('user logged in')
+    }
   }, [])
 
 
@@ -25,9 +35,9 @@ export default function Verfikasi() {
           <h3 className='text-3xl font-bold text-gray-200 font-josefin-sans text-center sm:text-5xl lg:text-3xl'>
             Admin Status verify
           </h3>
-          {(data || authCode) && <p className="mx-auto text-xl text-green-600 font-semibold">Welcome Admin</p>}
+          {(data || auth) && <p className="mx-auto text-xl text-green-600 font-semibold">Welcome Admin</p>}
           {
-            (data || authCode) ? 
+            (data || auth) ? 
             <div className="mx-auto">
               <ul className="flex gap-x-5">
                 <li className="px-5 py-1 bg-red-600 rounded font-medium text-lg">
@@ -99,10 +109,12 @@ export const adminVerify = async ({ request }) => {
 
   try {
     const response = await axios.post("http://localhost:1000/api/admin", data, {withCredentials: true});
-    localStorage.setItem('tokenExp', response.data.tokenExp)
-    return response.data;
+    localStorage.setItem('token', response.data.dataToken.token)
+    localStorage.setItem('tokenExp', response.data.dataToken.exp)
+    if(response.data.code !== 200) return null
+    return response.data.code;
   } catch (error) {
     console.log(error.response);
-    return "false";
+    return false;
   }
 };

@@ -2,21 +2,25 @@ import { NavLink, useNavigate } from "react-router-dom";
 import setting from "../image/setting.webp";
 import { useEffect } from "react";
 import axios from "axios";
+import { adminWithTokenAuth } from "../axios-auth-config";
 
 export default function Admin() {
   const navigate = useNavigate()
+  console.log(localStorage.getItem('tokenExp'))
+  console.log(Date.now())
 
   useEffect(() => {
-    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
+    if(localStorage.getItem('tokenExp') <= Date.now()) {
+      axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
       .then(result => {
-        localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
-        if(result.data.code === 401) return navigate('/')
-      }).catch(err => {
-        if (err) {
-          return navigate('/')
-        }
+        localStorage.setItem('tokenExp', result.data.dataToken.exp)
+        localStorage.setItem('token', result.data.dataToken.token)
       })
-  }, [navigate])
+      .catch(err => navigate('/'))
+    } else if(!localStorage.getItem('token')) {
+      return navigate('/')
+    } 
+  }, [])
 
   return (
     <>

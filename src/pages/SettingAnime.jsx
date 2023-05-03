@@ -9,20 +9,35 @@ export default function SettingAnime() {
   const [data, setData] = useState(actionData)
 
   useEffect(() => {
-    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
+    if(localStorage.getItem('tokenExp') <= Date.now()) {
+      axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
       .then(result => {
-        localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
-        if(result.data.code === 401) return navigate('/')
-      }).catch(err => {
-        if (err) {
-          return navigate('/')
-        }
+        localStorage.setItem('tokenExp', result.data.dataToken.exp)
+        localStorage.setItem('token', result.data.dataToken.token)
       })
-  }, [])
+      .catch(err => navigate('/'))
+    } else if(!localStorage.getItem('token')) {
+      return navigate('/')
+    } 
+  }, [navigate])
 
   const deleteAnime = async (animeId) => {
+    const tokenExp = localStorage.getItem('tokenExp')
+    const axiosDelete = axios.create()
+    axiosDelete.interceptors.request.use(async config => {
+      if(tokenExp <= Date.now()) {
+        const response = await axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
+        localStorage.setItem('token', response.data.dataToken.token)
+        localStorage.setItem('tokenExp', response.data.dataToken.exp)
+        config.headers.Authorization = 'Bearer ' + response.data.dataToken.token
+      }
+      return config
+    })
     try {
-      await axios.delete('http://localhost:1000/api/animes/'+animeId, {withCredentials: true})
+      await axiosDelete.delete('http://localhost:1000/api/animes/'+animeId, {
+        withCredentials: true,
+        headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+      })
       const newData = data.filter(anime => anime.id !== animeId)
       setData(newData)
     } catch (error) {

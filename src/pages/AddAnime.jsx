@@ -7,16 +7,18 @@ export default function AddAnime() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
+    if(localStorage.getItem('tokenExp') <= Date.now()) {
+      axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
       .then(result => {
-        localStorage.setItem('tokenExp', result.data.serverData.tokenExp)
-        if(result.data.code === 401) return navigate('/')
-      }).catch(err => {
-        if (err) {
-          return navigate('/')
-        }
+        localStorage.setItem('tokenExp', result.data.dataToken.exp)
+        localStorage.setItem('token', result.data.dataToken.token)
       })
-  }, [navigate])
+      .catch(err => navigate('/'))
+    } else if(!localStorage.getItem('token')) {
+      return navigate('/')
+    } 
+  }, [])
+
   return (
     <>
       <div
@@ -161,16 +163,6 @@ export default function AddAnime() {
 export const addAnimeAction = async ({request}) => {
   const formData = Object.fromEntries(await request.formData())
   const tokenExp = localStorage.getItem('tokenExp')
-  
-  if (tokenExp <= Date.now()) {
-    try {
-      const response = await axios.get('http://localhost:1000/api/admin/auth', {withCredentials: true})
-      localStorage.setItem('tokenExp', response.data.serverData.tokenExp)
-    } catch (error) {
-      console.log(error)
-      return 'failed'
-    }
-  }
 
   for (const data in formData) {
     if(!formData[data]){
@@ -178,11 +170,26 @@ export const addAnimeAction = async ({request}) => {
     }
   }
 
+  const axiosCreateAnime = axios.create()
+
+  axiosCreateAnime.interceptors.request.use(async config => {
+    if(tokenExp <= Date.now()) {
+      const response = await axios.get('http://localhost:1000/api/admin/refresh-token', {withCredentials: true })
+      localStorage.setItem('token', response.data.dataToken.token)
+      localStorage.setItem('tokenExp', response.data.dataToken.exp)
+      config.headers.Authorization = 'Bearer ' + response.data.dataToken.token
+    }
+    return config
+  })
+
   try {
-    const response = await axios.post('http://localhost:1000/api/animes', formData, {withCredentials: true})
+    const response = await axiosCreateAnime.post('http://localhost:1000/api/animes', formData, {
+      withCredentials: true,
+      headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+    })
     return response.data
   } catch (error) {
     console.log(error)
-    return 'failed'
+    return false
   }
 }

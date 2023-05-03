@@ -31,10 +31,10 @@ export default function Home() {
           </Form>
           <div className='flex flex-col gap-y-5 mt-4 pb-10 sm:grid sm:grid-cols-2 lg:grid-cols-4'>
             {data &&
-              data.map((anime) => {
+              data.map((anime, i) => {
                 return (
                   <>
-                    <div key={anime.id} className='w-5/6 mx-auto text-center'>
+                    <div key={i} className='w-5/6 mx-auto text-center'>
                       <img
                         src={anime.poster}
                         alt={anime.title}
@@ -46,6 +46,7 @@ export default function Home() {
                       <Link
                         to='/detail'
                         state={anime}
+                        key={anime.id}
                         className='bg-blue-500 font-bold px-3 py-1 rounded md:text-xl lg:text-base'>
                         Show Detail
                       </Link>
